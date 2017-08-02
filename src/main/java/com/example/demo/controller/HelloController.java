@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @Controller
 @RequestMapping("/")
 public class HelloController {
@@ -27,13 +29,17 @@ public class HelloController {
 
     @RequestMapping(method=RequestMethod.GET)
     public String helloTwitter(Model model) {
-        if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
+    	System.out.println("if");
+    	if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
             return "redirect:/connect/twitter";
         }
 
         model.addAttribute(twitter.userOperations().getUserProfile());
+        System.out.println("1");
         CursoredList<TwitterProfile> friends = twitter.friendOperations().getFriends();
+        System.out.println("2");
         model.addAttribute("friends", friends);
+        System.out.println("3");
         return "hello";
     }
 
