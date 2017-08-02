@@ -1,4 +1,4 @@
-package controller;
+package com.example.demo.controller;
 
 import javax.inject.Inject;
 
