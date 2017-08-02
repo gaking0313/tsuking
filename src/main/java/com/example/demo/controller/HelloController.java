@@ -23,32 +23,36 @@ public class HelloController {
     private ConnectionRepository connectionRepository;
 
     @Inject
-    public HelloController(Twitter twitter, ConnectionRepository connectionRepository) {
+    public HelloController(Twitter twitter,
+            ConnectionRepository connectionRepository) {
         this.twitter = twitter;
         this.connectionRepository = connectionRepository;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String helloTwitter(Model model) {
-		// クラス名#メソッド名
-		String target = this.getClass().toString();
-		log.info(target + " START");
-    	
-    	System.out.println("if");
-    	if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
-        	log.info("OUTPUT redirect:/connect/twitter");
-        	
+        // クラス名#メソッド名
+        String target = this.getClass().toString() + "#" + "helloTwitter";
+        log.info(target + " START");
+
+        if (this.connectionRepository
+            .findPrimaryConnection(Twitter.class) == null) {
+
+            log.info(target + "OUTPUT \"redirect:/connect/twitter\"");
+
             return "redirect:/connect/twitter";
         }
 
-        model.addAttribute(twitter.userOperations().getUserProfile());
-        System.out.println("1");
-        CursoredList<TwitterProfile> friends = twitter.friendOperations().getFriends();
-        System.out.println("2");
-        model.addAttribute("friends", friends);
-        System.out.println("3");
+        model.addAttribute(this.twitter.userOperations().getUserProfile());
+        CursoredList<TwitterProfile> followers =
+            this.twitter.friendOperations().getFollowers();
+        model.addAttribute("followers", followers);
+
+        log.info(target + "OUTPUT \"hello\"");
+        log.info(target + " END");
+
         return "hello";
-        
+
     }
 
 }

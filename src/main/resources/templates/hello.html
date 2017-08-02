@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Hello Twitter</title>
+</head>
+<body>
+	<h3>
+		Hello, <span th:text="${twitterProfile.name}">Some User</span>!
+	</h3>
+
+	<h4>These are your followers:</h4>
+
+	<ul>
+		<li th:each="followers:${followers}">
+			<span th:text="${followers.name}">Followers's name</span> (@<span th:text="${followers.screenName}">Followers's screen name</span>)
+		</li>
+	</ul>
+</body>
+</html>
