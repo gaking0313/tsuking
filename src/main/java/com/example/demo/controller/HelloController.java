@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/")
 public class HelloController {
@@ -27,14 +30,24 @@ public class HelloController {
 
     @RequestMapping(method=RequestMethod.GET)
     public String helloTwitter(Model model) {
+		// クラス名#メソッド名
+		String target = this.getClass().toString();
+		log.info(target + " START");
+    	
         if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
+        	log.info("OUTPUT redirect:/connect/twitter");
+        	
             return "redirect:/connect/twitter";
         }
 
         model.addAttribute(twitter.userOperations().getUserProfile());
         CursoredList<TwitterProfile> friends = twitter.friendOperations().getFriends();
         model.addAttribute("friends", friends);
+    	log.info(target + " END");
+    	log.info("OUTPUT hello");
+
         return "hello";
+        
     }
 
 }
