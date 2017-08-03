@@ -47,7 +47,7 @@ public class HelloController {
         // 認可がまだならOAuth
         if (this.oAuthService.hasConnection(this.connectionRepository)) {
 
-            log.info(target + "OUTPUT \"redirect:/connect/twitter\"");
+            log.info(target + " OUTPUT \"redirect:/connect/twitter\"");
 
             return "redirect:/connect/twitter";
         }
@@ -61,7 +61,7 @@ public class HelloController {
 
         model.addAttribute("followers", followers);
 
-        log.info(target + "OUTPUT \"hello\"");
+        log.info(target + " OUTPUT \"hello\"");
         log.info(target + " END");
 
         return "hello";
