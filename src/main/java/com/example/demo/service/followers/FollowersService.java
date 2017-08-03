@@ -15,7 +15,8 @@ public interface FollowersService {
 
     /**
      * フォロワー一覧取得処理
-     *
+     * 
+     * @param twitter 
      * @return フォロワー一覧のリスト
      */
     public List<TwitterProfile> getFollowers(Twitter twitter);
