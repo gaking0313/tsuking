@@ -11,7 +11,7 @@
 
 	<ul>
 		<li th:each="followers:${followers}">
-			<img src="${followers.profileImageUrl}" alt="アイコン画像"/><span th:text="${followers.name}">Followers's name</span> (@<span th:text="${followers.screenName}">Followers's screen name</span>)
+			<img src=${followers.profileImageUrl} alt="アイコン画像"/><span th:text="${followers.name}">Followers's name</span> (@<span th:text="${followers.screenName}">Followers's screen name</span>)
 		</li>
 	</ul>
 </body>
