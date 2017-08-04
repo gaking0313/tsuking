@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class RetweetersServiceImpl implements RetweetersService{
 
 	@Override
