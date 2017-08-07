@@ -8,20 +8,9 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Service;
 
-/**
- * フォロワー取得処理のサービスクラス
- *
- * @author kohei_ot
- *
- */
 @Service
 public class FollowersServiceImpl implements FollowersService {
 
-    /**
-     * フォロワー一覧取得処理
-     *
-     * @return フォロワー一覧のリスト
-     */
     @Override
     public List<TwitterProfile> getFollowers(Twitter twitter) {
 
