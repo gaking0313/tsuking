@@ -1,4 +1,4 @@
-package common.aop;
+package com.example.demo.common.aop;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,7 +25,7 @@ public class LoggingAop {
      * @return result:行った処理の結果オブジェクト
      * @throws Throwable Exception
      */
-    @Around("execution(* com.example.demo.controller...(..))")
+    @Around("execution(* com.example.demo.controller..*.*(..))")
     public Object logController(ProceedingJoinPoint joinPoint)
             throws Throwable {
 
@@ -75,7 +75,7 @@ public class LoggingAop {
      * @return result:行った処理の結果オブジェクト
      * @throws Throwable Exception
      */
-    @Around("execution(* com.example.demo.service...(..))")
+    @Around("execution(* com.example.demo.service..*.*(..))")
     public Object logService(ProceedingJoinPoint joinPoint) throws Throwable {
 
         // クラス名#メソッド名

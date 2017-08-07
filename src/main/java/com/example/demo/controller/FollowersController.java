@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.service.followers.FollowersService;
 import com.example.demo.service.oauth.OAuthService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/")
 public class FollowersController {
@@ -39,16 +36,8 @@ public class FollowersController {
     @RequestMapping(method = RequestMethod.GET)
     public String getFollowers(Model model) {
 
-        // クラス名#メソッド名
-        String target = this.getClass().toString() + "#" + "getFollowers";
-
-        log.info(target + " START");
-
         // 認可がまだならOAuth
         if (this.oAuthService.hasConnection(this.connectionRepository)) {
-
-            log.info(target + " OUTPUT \"redirect:/connect/twitter\"");
-
             return "redirect:/connect/twitter";
         }
 
@@ -60,9 +49,6 @@ public class FollowersController {
             this.followersService.getFollowers(this.twitter);
 
         model.addAttribute("followers", followers);
-
-        log.info(target + " OUTPUT \"followers\"");
-        log.info(target + " END");
 
         return "followers";
 

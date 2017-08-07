@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.service.dm.DMService;
 import com.example.demo.service.oauth.OAuthService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/dm")
 public class DmController {
@@ -38,15 +35,8 @@ public class DmController {
     @RequestMapping(method = RequestMethod.GET)
     public String getDMUsers(Model model) {
 
-        // クラス名#メソッド名
-        String target = this.getClass().toString() + "#" + "getDmUsers";
-
-        log.info(target + " START");
-
         // 認可がまだならOAuth
         if (this.oAuthService.hasConnection(this.connectionRepository)) {
-
-            log.info(target + " OUTPUT \"redirect:/connect/twitter\"");
 
             return "redirect:/connect/twitter";
         }
@@ -58,9 +48,6 @@ public class DmController {
         List<TwitterProfile> dmUsers = this.dmService.getDMUsers(this.twitter);
 
         model.addAttribute("dmUsers", dmUsers);
-
-        log.info(target + " OUTPUT \"dm\"");
-        log.info(target + " END");
 
         return "dm";
     }
