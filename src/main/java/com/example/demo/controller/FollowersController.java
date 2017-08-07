@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.service.followers.FollowersService;
 import com.example.demo.service.oauth.OAuthService;
-import com.example.demo.service.retweeters.RetweetersService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/")
-public class HelloController {
+public class FollowersController {
 
     @Autowired
     private Twitter twitter;
@@ -32,19 +31,16 @@ public class HelloController {
     @Autowired
     private FollowersService followersService;
 
-    @Autowired
-    private RetweetersService RetweetersService;
-    
     /** Twitterアプリの認可サービス */
     @Autowired
     private OAuthService oAuthService;
 
     // TODO もうちょっとコントローラ分けたい
     @RequestMapping(method = RequestMethod.GET)
-    public String helloTwitter(Model model) {
+    public String getFollowers(Model model) {
 
         // クラス名#メソッド名
-        String target = this.getClass().toString() + "#" + "helloTwitter";
+        String target = this.getClass().toString() + "#" + "getFollowers";
 
         log.info(target + " START");
 
@@ -59,20 +55,16 @@ public class HelloController {
         // TODO どっかに移す
         model.addAttribute(this.twitter.userOperations().getUserProfile());
 
-//        // フォロワー一覧取得処理
-//        List<TwitterProfile> followers =
-//            this.followersService.getFollowers(this.twitter);
+        // フォロワー一覧取得処理
+        List<TwitterProfile> followers =
+            this.followersService.getFollowers(this.twitter);
 
-      // フォロワー一覧取得処理
-      List<TwitterProfile> retweeters =
-          this.RetweetersService.getRetweeters(this.twitter);
-        
-        model.addAttribute("followers", retweeters);
+        model.addAttribute("followers", followers);
 
-        log.info(target + " OUTPUT \"hello\"");
+        log.info(target + " OUTPUT \"followers\"");
         log.info(target + " END");
 
-        return "hello";
+        return "followers";
 
     }
 
