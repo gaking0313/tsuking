@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.csv.Csv;
+import com.example.demo.model.User;
 import com.example.demo.service.followers.FollowersService;
 import com.example.demo.service.oauth.OAuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,14 +61,14 @@ public class FollowersController {
 
         //        return "dm";
         long no = 1;
-        List<Csv> demos = new ArrayList<Csv>();
+        List<User> demos = new ArrayList<User>();
         for (TwitterProfile user : dmUsers) {
-            demos.add(new Csv(no, user.getScreenName()));
+            demos.add(new User(no, user.getScreenName()));
             no++;
         }
 
         CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(Csv.class).withHeader();
+        CsvSchema schema = mapper.schemaFor(User.class).withHeader();
         return mapper.writer(schema).writeValueAsString(demos);
 
     }
