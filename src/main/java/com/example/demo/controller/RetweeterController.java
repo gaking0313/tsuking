@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.demo.service.dm.DMService;
 import com.example.demo.service.oauth.OAuthService;
 import com.example.demo.service.retweeters.RetweetersService;
 
@@ -48,7 +47,7 @@ public class RetweeterController {
 	        // ダイレクトメッセージユーザー一覧取得処理
 	        List<TwitterProfile> retweeters = this.retweeterService.getRetweeters(this.twitter);
 
-	        model.addAttribute("Retweeters", retweeters);
+	        model.addAttribute("retweeters", retweeters);
 
 	        return "retweet";
 	    }
