@@ -28,7 +28,7 @@ public class OAuthController {
             return "redirect:/connect/twitter";
         }
 
-        return "twitterConnected";
+        return "connect/twitterConnected";
 
     }
 }
