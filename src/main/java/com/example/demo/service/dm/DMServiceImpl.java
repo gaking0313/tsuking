@@ -17,8 +17,16 @@ public class DMServiceImpl implements DMService {
     public List<TwitterProfile> getDMUsers(Twitter twitter) {
 
         // 受信したダイレクトメッセージを取得
-        List<DirectMessage> recievedDms =
-            twitter.directMessageOperations().getDirectMessagesReceived(1, 200);
+        // 1ページ200件取得し、200件以下になるまで繰り返し取得
+        int page = 1;
+        List<DirectMessage> recievedDms = new ArrayList<>();
+        do {
+            recievedDms.addAll(
+                twitter.directMessageOperations().getDirectMessagesReceived(
+                    page,
+                    200));
+            page++;
+        } while (recievedDms.size() == 200);
 
         // ユーザー情報を取り出し、重複を排除
         Set<TwitterProfile> dmUsersSet = new HashSet<>();
