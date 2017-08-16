@@ -10,9 +10,9 @@ public class OAuthServiceImpl implements OAuthService {
     @Override
     public Boolean hasConnection(ConnectionRepository connectionRepository) {
         if (connectionRepository.findPrimaryConnection(Twitter.class) == null) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 

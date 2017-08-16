@@ -23,7 +23,7 @@ public class OAuthController {
     public String oAuth() {
 
         // 認可がまだならOAuth
-        if (this.oAuthService.hasConnection(this.connectionRepository)) {
+        if (!this.oAuthService.hasConnection(this.connectionRepository)) {
 
             return "redirect:/connect/twitter";
         }

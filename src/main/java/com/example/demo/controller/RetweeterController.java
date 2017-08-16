@@ -45,7 +45,7 @@ public class RetweeterController {
     public String getRetweeters(Model model) throws JsonProcessingException {
 
         // 認可がまだならOAuth
-        if (this.oAuthService.hasConnection(this.connectionRepository)) {
+        if (!this.oAuthService.hasConnection(this.connectionRepository)) {
 
             return "redirect:/connect/twitter";
         }
