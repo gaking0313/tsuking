@@ -11,7 +11,7 @@
 
 	<ul>
 		<li th:each="retweeter:${retweeters}">
-			<span th:text="${retweeter.name}">DM Users's name</span> (@<span th:text="${retweeter.screenName}">DM Users's screen name</span>)
+			<span th:text="'${retweeter.name}' + ' (@' + '${retweeter.screenName}' + ')'">DM Users's name</span>
 		</li>
 	</ul>
 </body>

@@ -11,7 +11,7 @@
 
 	<ul>
 		<li th:each="dmUser:${dmUsers}">
-			<span th:text="${dmUser.name}">DM Users's name</span> (@<span th:text="${dmUser.screenName}">DM Users's screen name</span>)
+			<span th:text="'${dmUser.name}' + ' (@' + '${dmUser.screenName}' + ')'">DM Users's name</span>
 		</li>
 	</ul>
 </body>

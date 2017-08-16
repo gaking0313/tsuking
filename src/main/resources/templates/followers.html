@@ -11,7 +11,7 @@
 
 	<ul>
 		<li th:each="followers:${followers}">
-			<span th:text="${followers.name}">Followers's name</span> (@<span th:text="${followers.screenName}">Followers's screen name</span>)
+			<span th:text="'${followers.name}' + ' (@' + '${followers.screenName}' + ')'">Followers's name</span>
 		</li>
 	</ul>
 </body>
