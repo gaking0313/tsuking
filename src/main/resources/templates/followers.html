@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Followers</title>
+</head>
+<body>
+	<h3>
+		Hello, <span th:text="${twitterProfile.name}">Some User</span>!
+	</h3>
+
+	<h4>These are your followers:</h4>
+
+	<ul>
+		<li th:each="followers:${followers}">
+			<span th:text="'${followers.name}' + ' (@' + '${followers.screenName}' + ')'">Followers's name</span>
+		</li>
+	</ul>
+</body>
+</html>

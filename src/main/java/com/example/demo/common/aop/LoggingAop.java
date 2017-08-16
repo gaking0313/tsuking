@@ -1,10 +1,9 @@
-package common.aop;
+package com.example.demo.common.aop;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Aspect
 @Component
-@EnableAspectJAutoProxy
 public class LoggingAop {
 
     /**
@@ -27,7 +25,7 @@ public class LoggingAop {
      * @return result:行った処理の結果オブジェクト
      * @throws Throwable Exception
      */
-    @Around("execution(* com.example.demo.controller.*.*(..))")
+    @Around("execution(* com.example.demo.controller..*.*(..))")
     public Object logController(ProceedingJoinPoint joinPoint)
             throws Throwable {
 
@@ -71,13 +69,13 @@ public class LoggingAop {
 
     /**
      * ログ出力共通処理。
-     * コントローラークラスのログを出力する。
+     * サービスクラスのログを出力する。
      *
      * @param joinPoint JoinPoint:ポイントカットされた処理。マッチした処理を行う等に使用できる
      * @return result:行った処理の結果オブジェクト
      * @throws Throwable Exception
      */
-    @Around("execution(* com.example.demo.service.*.*.*(..))")
+    @Around("execution(* com.example.demo.service..*.*(..))")
     public Object logService(ProceedingJoinPoint joinPoint) throws Throwable {
 
         // クラス名#メソッド名
