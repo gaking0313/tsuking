@@ -1,17 +1,18 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Hello Twitter</title>
+<meta charset="UTF-8" />
+<title>Retweeters</title>
 </head>
 <body>
 	<h3>
 		Hello, <span th:text="${twitterProfile.name}">Some User</span>!
 	</h3>
 
-	<h4>These are your dm users:</h4>
+	<h4>These are your Retweeters:</h4>
 
 	<ul>
 		<li th:each="retweeter:${retweeters}">
-			<span th:text="'${retweeter.name}' + ' (@' + '${retweeter.screenName}' + ')'">DM Users's name</span>
+			<span th:text="'${retweeter.name}' + ' (@' + '${retweeter.screenName}' + ')'">Retweeter's name</span>
 		</li>
 	</ul>
 </body>

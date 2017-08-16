@@ -8,11 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.csv.Csv;
 import com.example.demo.service.dm.DMService;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
-@Controller
+@RestController
 @RequestMapping("/dm")
 public class DmController {
 
@@ -39,9 +39,10 @@ public class DmController {
     @Autowired
     private OAuthService oAuthService;
 
-    @GetMapping(value ="*.csv",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE + "; charset=Shift_JIS; Content-Disposition: attachment")
+    @GetMapping(value = "*.csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+        + "; charset=UTF-8; Content-Disposition: attachment")
     @ResponseBody
-    public Object getDMUsers(Model model) throws JsonProcessingException {
+    public String getDMUsers(Model model) throws JsonProcessingException {
 
         // 認可がまだならOAuth
         if (this.oAuthService.hasConnection(this.connectionRepository)) {
@@ -50,25 +51,25 @@ public class DmController {
         }
 
         // TODO どっかに移す
- //       model.addAttribute(this.twitter.userOperations().getUserProfile());
+        //       model.addAttribute(this.twitter.userOperations().getUserProfile());
 
         // ダイレクトメッセージユーザー一覧取得処理
         List<TwitterProfile> dmUsers = this.dmService.getDMUsers(this.twitter);
 
-//        model.addAttribute("dmUsers", dmUsers);
+        //        model.addAttribute("dmUsers", dmUsers);
 
-//        return "dm";
+        //        return "dm";
         long no = 1;
         List<Csv> demos = new ArrayList<Csv>();
-        for(TwitterProfile user: dmUsers) {
-        		demos.add(new Csv(no, user.getScreenName()));
-        		no++;
+        for (TwitterProfile user : dmUsers) {
+            demos.add(new Csv(no, user.getScreenName()));
+            no++;
         }
 
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = mapper.schemaFor(Csv.class).withHeader();
         return mapper.writer(schema).writeValueAsString(demos);
-        
+
     }
 
 }
