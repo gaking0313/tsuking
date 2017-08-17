@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.model.User;
+import com.example.demo.common.util.CsvUtil;
 import com.example.demo.service.dm.DMService;
 import com.example.demo.service.oauth.OAuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 @Controller
 @RequestMapping("/dm")
@@ -38,6 +35,10 @@ public class DmController {
     /** Twitterアプリの認可サービス */
     @Autowired
     private OAuthService oAuthService;
+
+    /** CSV関連の共通機能提供クラス */
+    @Autowired
+    private CsvUtil csvUtil;
 
     @GetMapping(value = "*.csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
         + "; charset=UTF-8; Content-Disposition: attachment")
@@ -59,16 +60,8 @@ public class DmController {
         //        model.addAttribute("dmUsers", dmUsers);
 
         //        return "dm";
-        long no = 1;
-        List<User> demos = new ArrayList<User>();
-        for (TwitterProfile user : dmUsers) {
-            demos.add(new User(no, user.getScreenName()));
-            no++;
-        }
 
-        CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(User.class).withHeader();
-        return mapper.writer(schema).writeValueAsString(demos);
+        return this.csvUtil.convertTwitterProfToCsv(dmUsers);
 
     }
 
